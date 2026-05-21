@@ -2,16 +2,6 @@ name: Build Test and Release AWS Lambda Layer for PyODBC
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - feature/**
-    tags:
-      - 'v*.*.*'
-  pull_request:
-    branches:
-      - main
-      - feature/**
 
 jobs:
   build:
@@ -33,7 +23,7 @@ jobs:
         run: |
           docker build -f Dockerfile-al2\
             --platform linux/amd64 \
-            --build-arg PYTHON_VERSIONS="3.9,3.10,3.11,3.12" \
+            --build-arg PYTHON_VERSIONS="3.9,3.10,3.11,3.12" \                     # VERSIONES DE PYTHON COMPATIBLES CON AL2
             --build-arg MSODBC_VERSION=${{ matrix.msodbc_version }} \
             --build-arg UNIXODBC_VERSION=${{ matrix.unixodbc_version }} \
             -t pyodbc-lambda-layer:multi-python-al2 .
@@ -42,7 +32,7 @@ jobs:
         run: |
           docker build -f Dockerfile-al2023\
             --platform linux/amd64 \
-            --build-arg PYTHON_VERSIONS="3.12,3.13,3.14" \
+            --build-arg PYTHON_VERSIONS="3.12,3.13,3.14" \                          # VERSIONES DE PYTHON COMPATIBLES CON AL2023
             --build-arg MSODBC_VERSION=${{ matrix.msodbc_version }} \
             --build-arg UNIXODBC_VERSION=${{ matrix.unixodbc_version }} \
             -t pyodbc-lambda-layer:multi-python-al2023 .
@@ -74,7 +64,7 @@ jobs:
     strategy:
       matrix:
         python_version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
-        msodbc_version: ["17", "18"]
+        msodbc_version: ["17", "18"]                                      # VERSIONES DE MSOBC COMPATIBLES CON PYODBC
         unixodbc_version: ["2.3.14"]
 
     steps:
