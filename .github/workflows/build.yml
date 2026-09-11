@@ -21,7 +21,7 @@ jobs:
 
       - name: Build Docker al2 image for AWS Lambda layer
         run: |
-          docker build -f Dockerfile-al2\
+          docker build -f Dockerfile-al2 \
             --platform linux/amd64 \
             --build-arg PYTHON_VERSIONS="3.9,3.10,3.11,3.12" \                     # VERSIONES DE PYTHON COMPATIBLES CON AL2
             --build-arg MSODBC_VERSION=${{ matrix.msodbc_version }} \
@@ -30,7 +30,7 @@ jobs:
 
       - name: Build Docker al2023 image for AWS Lambda layer
         run: |
-          docker build -f Dockerfile-al2023\
+          docker build -f Dockerfile-al2023 \
             --platform linux/amd64 \
             --build-arg PYTHON_VERSIONS="3.12,3.13,3.14" \                          # VERSIONES DE PYTHON COMPATIBLES CON AL2023
             --build-arg MSODBC_VERSION=${{ matrix.msodbc_version }} \
